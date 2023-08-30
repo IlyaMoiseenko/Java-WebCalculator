@@ -14,14 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/history")
+@WebServlet(name = "HistoryServlet", urlPatterns = "/history")
 public class HistoryServlet extends HttpServlet {
 
     private final OperationService operationService = new OperationService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User) getServletContext().getAttribute("user");
+        User user = (User) req.getSession().getAttribute("user");
 
         if (user != null) {
             List<String> historyByUser = operationService.getHistoryByUser(user);
