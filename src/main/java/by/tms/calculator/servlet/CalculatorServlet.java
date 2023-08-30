@@ -21,7 +21,7 @@ public class CalculatorServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User) getServletContext().getAttribute("user");
+        User user = (User) req.getSession().getAttribute("user");
 
         if (user != null) {
             double num1 = Double.parseDouble(req.getParameter("num1"));

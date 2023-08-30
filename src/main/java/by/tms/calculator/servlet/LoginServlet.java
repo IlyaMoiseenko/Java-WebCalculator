@@ -26,7 +26,7 @@ public class LoginServlet extends HttpServlet {
 
         Optional<User> user = userService.logIn(username, password);
         if (user.isPresent()) {
-            getServletContext().setAttribute("user", user.get());
+            req.getSession().setAttribute("user", user.get());
             resp.getWriter().println("Login success!");
         } else {
             resp.getWriter().println("Invalid user data!");
