@@ -8,6 +8,7 @@ import by.tms.calculator.models.User;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class JdbcOperationStorage implements OperationStorage {
@@ -17,11 +18,7 @@ public class JdbcOperationStorage implements OperationStorage {
     private final String GET_ALL_OPERATIONS = "select * from \"operation\"";
     private final String GET_ALL_OPERATIONS_BY_USER = "select * from \"operation\" where user_id = ?";
     public JdbcOperationStorage() {
-        try {
-            connection = JdbcPostgresConfig.getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        connection = JdbcPostgresConfig.getConnection();
     }
     @Override
     public void save(Operation operation) {

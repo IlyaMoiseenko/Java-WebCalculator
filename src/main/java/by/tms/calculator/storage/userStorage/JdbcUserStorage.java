@@ -19,11 +19,7 @@ public class JdbcUserStorage implements UserStorage {
     private final String GET_USER_BY_USERNAME_AND_PASSWORD = "select * from \"user\" where name = ? and password = ?";
 
     public JdbcUserStorage() {
-        try {
-            connection = JdbcPostgresConfig.getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        connection = JdbcPostgresConfig.getConnection();
     }
 
     @Override
