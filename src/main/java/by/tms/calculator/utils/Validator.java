@@ -8,17 +8,33 @@ import java.util.regex.Pattern;
 
 public class Validator implements Validation {
     private final String PASSWORD_PATTERN = "^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,})(?!.*\\s).{8,}$";
-    private final Pattern pattern;
+    private final String USERNAME_PATTERN  = "^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$";
+    private Pattern pattern;
     private Matcher matcher;
-
-    public Validator() {
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-    }
 
     @Override
     public boolean validate(User user) {
-        matcher = pattern.matcher(user.getPassword());
+        return passwordValidation(user.getPassword()) &&
+                usernameValidation(user.getUsername());
+    }
 
-        return matcher.matches();
+    private boolean passwordValidation(String password) {
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        if (matcher.matches())
+            return true;
+        else
+            throw new RuntimeException("Invalid password!");
+    }
+
+    private boolean usernameValidation(String username) {
+        pattern = Pattern.compile(USERNAME_PATTERN);
+        matcher = pattern.matcher(username);
+
+        if (matcher.matches())
+            return true;
+        else
+            throw new RuntimeException("Invalid username");
     }
 }
