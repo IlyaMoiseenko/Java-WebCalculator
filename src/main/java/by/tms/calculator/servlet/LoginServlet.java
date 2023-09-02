@@ -3,6 +3,7 @@ package by.tms.calculator.servlet;
 @author Ilya Moiseenko 28.08.2023
 */
 
+import by.tms.calculator.enums.Role;
 import by.tms.calculator.models.User;
 import by.tms.calculator.services.UserService;
 
@@ -26,8 +27,12 @@ public class LoginServlet extends HttpServlet {
 
         Optional<User> user = userService.logIn(username, password);
         if (user.isPresent()) {
-            req.getSession().setAttribute("user", user.get());
-            resp.getWriter().println("Login success!");
+            User currentUser = user.get();
+
+            if (currentUser.getRole() == Role.USER) {
+                req.getSession().setAttribute("user", user.get());
+                resp.getWriter().println("Login success!");
+            }
         } else {
             resp.getWriter().println("Invalid user data!");
         }

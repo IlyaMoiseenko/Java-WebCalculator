@@ -1,5 +1,6 @@
 package by.tms.calculator.services;
 
+import by.tms.calculator.enums.Role;
 import by.tms.calculator.interfaces.UserStorage;
 import by.tms.calculator.interfaces.Validation;
 import by.tms.calculator.storage.userStorage.JdbcUserStorage;
@@ -15,7 +16,7 @@ public class UserService {
     private final Validation validation = new Validator();
 
     public void create(String username, String password) {
-        User newUser = new User(username, password);
+        User newUser = new User(username, password, Role.USER);
 
         if (validation.validate(newUser))
             userStorage.add(newUser);

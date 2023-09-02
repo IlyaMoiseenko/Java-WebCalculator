@@ -1,6 +1,7 @@
 package by.tms.calculator.storage.userStorage;
 
 import by.tms.calculator.config.JdbcPostgresConfig;
+import by.tms.calculator.enums.Role;
 import by.tms.calculator.interfaces.UserStorage;
 import by.tms.calculator.models.User;
 
@@ -14,7 +15,7 @@ import java.util.UUID;
 public class JdbcUserStorage implements UserStorage {
     private static Connection connection;
 
-    private final String ADD_USER = "insert into \"user\" values (?, ?, ?)";
+    private final String ADD_USER = "insert into \"user\" values (?, ?, ?, ?)";
     private final String GET_USER_BY_ID = "select * from \"user\" where id = ?";
     private final String GET_USER_BY_USERNAME_AND_PASSWORD = "select * from \"user\" where name = ? and password = ?";
 
@@ -29,10 +30,10 @@ public class JdbcUserStorage implements UserStorage {
             preparedStatement.setString(1, user.getId().toString());
             preparedStatement.setString(2, user.getUsername());
             preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getRole().toString());
 
             preparedStatement.execute();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,9 +50,10 @@ public class JdbcUserStorage implements UserStorage {
                 UUID resultSetId = UUID.fromString(resultSet.getString(1));
                 String resultSetUsername = resultSet.getString(2);
                 String resultSetPassword = resultSet.getString(3);
+                String resultSetRole = resultSet.getString(4);
 
                 preparedStatement.close();
-                return new User(resultSetId, resultSetUsername, resultSetPassword);
+                return new User(resultSetId, resultSetUsername, resultSetPassword, Role.valueOf(resultSetRole));
             }
 
         } catch (SQLException e) {
@@ -73,9 +75,10 @@ public class JdbcUserStorage implements UserStorage {
                 UUID resultSetId = UUID.fromString(resultSet.getString(1));
                 String resultSetUsername = resultSet.getString(2);
                 String resultSetPassword = resultSet.getString(3);
+                String resultSetRole = resultSet.getString(4);
 
                 preparedStatement.close();
-                return Optional.of(new User(resultSetId, resultSetUsername, resultSetPassword));
+                return Optional.of(new User(resultSetId, resultSetUsername, resultSetPassword, Role.valueOf(resultSetRole)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
