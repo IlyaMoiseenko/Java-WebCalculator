@@ -1,29 +1,31 @@
 package by.tms.calculator.models;
 
+import by.tms.calculator.enums.OperationType;
+
 import java.util.UUID;
 
 public class Operation {
     private double num1;
     private double num2;
-    private String type;
+    private OperationType type;
     private double result;
     private UUID userId;
 
-    public Operation(double num1, double num2, String type, double result) {
+    public Operation(double num1, double num2, OperationType type, double result) {
         this.num1 = num1;
         this.num2 = num2;
         this.type = type;
         this.result = result;
     }
 
-    public Operation(double num1, double num2, String type, UUID userId) {
+    public Operation(double num1, double num2, OperationType type, UUID userId) {
         this.num1 = num1;
         this.num2 = num2;
         this.type = type;
         this.userId = userId;
     }
 
-    public Operation(double num1, double num2, String type, double result, UUID userId) {
+    public Operation(double num1, double num2, OperationType type, double result, UUID userId) {
         this.num1 = num1;
         this.num2 = num2;
         this.type = type;
@@ -47,11 +49,11 @@ public class Operation {
         this.num2 = num2;
     }
 
-    public String getType() {
+    public OperationType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(OperationType type) {
         this.type = type;
     }
 

@@ -3,6 +3,7 @@ package by.tms.calculator.servlet;
 @author Ilya Moiseenko 28.08.2023
 */
 
+import by.tms.calculator.enums.OperationType;
 import by.tms.calculator.models.Operation;
 import by.tms.calculator.models.User;
 import by.tms.calculator.services.OperationService;
@@ -26,7 +27,7 @@ public class CalculatorServlet extends HttpServlet {
         if (user != null) {
             double num1 = Double.parseDouble(req.getParameter("num1"));
             double num2 = Double.parseDouble(req.getParameter("num2"));
-            String type = req.getParameter("type");
+            OperationType type = OperationType.valueOf(req.getParameter("type").toUpperCase());
 
             Operation operation = new Operation(num1, num2, type, user.getId());
             Operation result = operationService.calculate(operation);

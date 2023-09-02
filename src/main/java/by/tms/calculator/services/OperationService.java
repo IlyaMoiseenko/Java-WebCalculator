@@ -15,19 +15,19 @@ public class OperationService {
 
     public Operation calculate(Operation operation) {
         switch (operation.getType()) {
-            case "sum":
+            case SUM:
                 operation.setResult(operation.getNum1() + operation.getNum2());
                 storage.save(operation);
                 return operation;
-            case "sub":
+            case SUB:
                 operation.setResult(operation.getNum1() - operation.getNum2());
                 storage.save(operation);
                 return operation;
-            case "mul":
+            case MUL:
                 operation.setResult(operation.getNum1() * operation.getNum2());
                 storage.save(operation);
                 return operation;
-            case "div":
+            case DIV:
                 operation.setResult(operation.getNum1() / operation.getNum2());
                 storage.save(operation);
                 return operation;
@@ -57,7 +57,7 @@ public class OperationService {
         }
 
         for (Operation operation : allByUser) {
-            result.add(operation.getNum1() + operation.getType() + operation.getNum2() + " = " + operation.getResult());
+            result.add(operation.getNum1() + operation.getType().toString() + operation.getNum2() + " = " + operation.getResult());
         }
 
         return result;

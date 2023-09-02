@@ -1,6 +1,7 @@
 package by.tms.calculator.storage.operationStorage;
 
 import by.tms.calculator.config.JdbcPostgresConfig;
+import by.tms.calculator.enums.OperationType;
 import by.tms.calculator.interfaces.OperationStorage;
 import by.tms.calculator.models.Operation;
 import by.tms.calculator.models.User;
@@ -30,7 +31,7 @@ public class JdbcOperationStorage implements OperationStorage {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_OPERATION);
             preparedStatement.setDouble(1, operation.getNum1());
             preparedStatement.setDouble(2, operation.getNum2());
-            preparedStatement.setString(3, operation.getType());
+            preparedStatement.setString(3, operation.getType().toString());
             preparedStatement.setDouble(4, operation.getResult());
             preparedStatement.setString(5, operation.getUserId().toString());
 
@@ -52,7 +53,7 @@ public class JdbcOperationStorage implements OperationStorage {
             while (resultSet.next()) {
                 double resultSetNum1 = resultSet.getDouble(1);
                 double resultSetNum2 = resultSet.getDouble(2);
-                String resultSetOperationType = resultSet.getString(3);
+                OperationType resultSetOperationType = OperationType.valueOf(resultSet.getString(3));
                 double resultSetOperationResult = resultSet.getDouble(4);
                 UUID resultSetUserId = UUID.fromString(resultSet.getString(5));
 
@@ -87,7 +88,7 @@ public class JdbcOperationStorage implements OperationStorage {
             while (resultSet.next()) {
                 double resultSetNum1 = resultSet.getDouble(1);
                 double resultSetNum2 = resultSet.getDouble(2);
-                String resultSetOperationType = resultSet.getString(3);
+                OperationType resultSetOperationType = OperationType.valueOf(resultSet.getString(3));
                 double resultSetOperationResult = resultSet.getDouble(4);
                 UUID resultSetUserId = UUID.fromString(resultSet.getString(5));
 
