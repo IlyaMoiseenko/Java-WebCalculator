@@ -30,8 +30,11 @@ public class LoginServlet extends HttpServlet {
             User currentUser = user.get();
 
             if (currentUser.getRole() == Role.USER) {
-                req.getSession().setAttribute("user", user.get());
+                req.getSession().setAttribute("user", currentUser);
                 resp.getWriter().println("Login success!");
+            } else if (currentUser.getRole() == Role.ADMIN) {
+                req.getSession().setAttribute("admin", currentUser);
+                resp.getWriter().println("Admin login success!");
             }
         } else {
             resp.getWriter().println("Invalid user data!");
