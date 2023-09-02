@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
 
-@WebServlet("/admin/delete-user")
+@WebServlet(name = "DeleteUserServlet", urlPatterns = "/admin/delete-user")
 public class DeleteUserServlet extends HttpServlet {
 
     private final AdminService adminService = new AdminService();

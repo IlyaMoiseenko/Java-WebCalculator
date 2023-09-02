@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/admin/get-users")
+@WebServlet(name = "GetUsersServlet", urlPatterns = "/admin/get-users")
 public class GetUsersServlet extends HttpServlet {
 
     private final AdminService adminService = new AdminService();
