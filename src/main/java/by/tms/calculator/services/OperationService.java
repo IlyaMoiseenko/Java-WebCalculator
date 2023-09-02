@@ -7,6 +7,7 @@ import by.tms.calculator.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class OperationService {
 
@@ -60,5 +61,9 @@ public class OperationService {
         }
 
         return result;
+    }
+
+    public boolean deleteByUserId(UUID id) {
+        return storage.deleteAllByUserId(id);
     }
 }

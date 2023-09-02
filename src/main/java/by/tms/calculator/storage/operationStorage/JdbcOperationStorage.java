@@ -12,14 +12,18 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class JdbcOperationStorage implements OperationStorage {
+
     private Connection connection;
 
     private final String ADD_OPERATION = "insert into \"operation\" values (?, ?, ?, ?, ?)";
     private final String GET_ALL_OPERATIONS = "select * from \"operation\"";
     private final String GET_ALL_OPERATIONS_BY_USER = "select * from \"operation\" where user_id = ?";
+    private final String DELETE_ALL_BY_USERID = "delete from \"operation\" where user_id = ?";
+
     public JdbcOperationStorage() {
         connection = JdbcPostgresConfig.getConnection();
     }
+
     @Override
     public void save(Operation operation) {
         try {
@@ -32,7 +36,6 @@ public class JdbcOperationStorage implements OperationStorage {
 
             preparedStatement.execute();
             preparedStatement.close();
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -105,5 +108,22 @@ public class JdbcOperationStorage implements OperationStorage {
         }
 
         return operationsByUser;
+    }
+
+    @Override
+    public boolean deleteAllByUserId(UUID id) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ALL_BY_USERID);
+            preparedStatement.setString(1, id.toString());
+
+            int i = preparedStatement.executeUpdate();
+            preparedStatement.close();
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }
