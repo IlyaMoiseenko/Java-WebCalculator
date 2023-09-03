@@ -19,6 +19,7 @@ public class JdbcUserStorage implements UserStorage {
     private final String GET_USER_BY_USERNAME_AND_PASSWORD = "select * from \"user\" where name = ? and password = ?";
     private final String GET_ALL_USERS = "select * from \"user\"";
     private final String DELETE_BY_ID = "delete from \"user\" where id = ?";
+    private final String UPDATE = "update \"user\" set name = ?, password = ? where id = ?";
 
     public JdbcUserStorage() {
         connection = JdbcPostgresConfig.getConnection();
@@ -124,6 +125,25 @@ public class JdbcUserStorage implements UserStorage {
             preparedStatement.setString(1, id.toString());
 
             int index = preparedStatement.executeUpdate();
+            preparedStatement.close();
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean update(User user) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE);
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getId().toString());
+
+            preparedStatement.executeUpdate();
             preparedStatement.close();
 
             return true;

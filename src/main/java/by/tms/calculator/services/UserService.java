@@ -29,4 +29,15 @@ public class UserService {
     public Optional<User> logIn(String username, String password) {
         return userStorage.get(username, password);
     }
+
+    public boolean updateUsername(User user, String username) {
+        user.setUsername(username);
+
+        if (validation.validate(user)) {
+            userStorage.update(user);
+
+            return true;
+        } else
+            return false;
+    }
 }

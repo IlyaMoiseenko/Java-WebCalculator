@@ -16,4 +16,6 @@ public interface UserStorage {
     List<User> getAll();
 
     boolean deleteById(UUID id);
+
+    boolean update(User user);
 }
