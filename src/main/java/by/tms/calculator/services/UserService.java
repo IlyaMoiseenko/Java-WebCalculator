@@ -40,4 +40,15 @@ public class UserService {
         } else
             return false;
     }
+
+    public boolean updatePassword(User user, String password) {
+        user.setPassword(password);
+
+        if (validation.validate(user)) {
+            userStorage.update(user);
+
+            return true;
+        } else
+            return false;
+    }
 }
