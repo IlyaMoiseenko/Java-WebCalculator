@@ -1,8 +1,6 @@
-package by.tms.calculator.servlet;
-/*
-@author Ilya Moiseenko 28.08.2023
-*/
+package by.tms.calculator.servlet.user;
 
+import by.tms.calculator.models.User;
 import by.tms.calculator.services.UserService;
 
 import javax.servlet.ServletException;
@@ -12,15 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/register")
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "UpdatePasswordServlet", urlPatterns = {"/update-password"})
+public class UpdatePasswordServlet extends HttpServlet {
+
     private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String username = req.getParameter("username");
+        User currentUser = (User) req.getSession().getAttribute("user");
         String password = req.getParameter("password");
 
-        userService.create(username, password);
+        boolean updatedStatus = userService.updatePassword(currentUser, password);
+        if (updatedStatus)
+            resp.getWriter().println("Password was updated!");
     }
 }

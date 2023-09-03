@@ -1,4 +1,4 @@
-package by.tms.calculator.servlet;
+package by.tms.calculator.servlet.user;
 /*
 @author Ilya Moiseenko 28.08.2023
 */
