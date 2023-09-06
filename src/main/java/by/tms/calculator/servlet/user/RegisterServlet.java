@@ -3,7 +3,11 @@ package by.tms.calculator.servlet.user;
 @author Ilya Moiseenko 28.08.2023
 */
 
+import by.tms.calculator.enums.Role;
+import by.tms.calculator.interfaces.Validation;
+import by.tms.calculator.models.User;
 import by.tms.calculator.services.UserService;
+import by.tms.calculator.utils.Validator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +19,15 @@ import java.io.IOException;
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
     private final UserService userService = new UserService();
+    private final Validation validation = new Validator();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        userService.create(username, password);
+        User user = new User(username, password, Role.USER);
+        if (validation.validate(user))
+            userService.create(user);
     }
 }

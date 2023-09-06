@@ -18,7 +18,7 @@ public class Validator implements Validation {
                 usernameValidation(user.getUsername());
     }
 
-    private boolean passwordValidation(String password) {
+    public boolean passwordValidation(String password) {
         pattern = Pattern.compile(PASSWORD_PATTERN);
         matcher = pattern.matcher(password);
 
@@ -28,7 +28,7 @@ public class Validator implements Validation {
             throw new RuntimeException("Invalid password!");
     }
 
-    private boolean usernameValidation(String username) {
+    public boolean usernameValidation(String username) {
         pattern = Pattern.compile(USERNAME_PATTERN);
         matcher = pattern.matcher(username);
 
