@@ -33,6 +33,10 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/logout">Login</a>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" href="/register">Register</a>
                     </li>
 

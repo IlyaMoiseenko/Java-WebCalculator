@@ -18,10 +18,15 @@ import java.util.Optional;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
-    private UserService userService = new UserService();
+    private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/pages/login.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
@@ -31,10 +36,10 @@ public class LoginServlet extends HttpServlet {
 
             if (currentUser.getRole() == Role.USER) {
                 req.getSession().setAttribute("user", currentUser);
-                resp.getWriter().println("Login success!");
+                resp.sendRedirect("/");
             } else if (currentUser.getRole() == Role.ADMIN) {
                 req.getSession().setAttribute("admin", currentUser);
-                resp.getWriter().println("Admin login success!");
+                resp.sendRedirect("/");
             }
         } else {
             resp.getWriter().println("Invalid user data!");
