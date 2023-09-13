@@ -26,9 +26,11 @@ public class HistoryServlet extends HttpServlet {
         if (user != null) {
             List<String> historyByUser = operationService.getHistoryByUser(user);
 
-            resp.getWriter().println(historyByUser);
+            req.setAttribute("history", historyByUser);
         } else {
             resp.getWriter().println("Please, login or register");
         }
+
+        getServletContext().getRequestDispatcher("/pages/history.jsp").forward(req, resp);
     }
 }
