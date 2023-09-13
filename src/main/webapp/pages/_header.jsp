@@ -15,6 +15,40 @@
 </head>
 <body>
 
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Home</a>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <c:if test="${user != null}">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/calculator">Calculator</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">History</a>
+                    </li>
+                </c:if>
+
+                <c:if test="${user == null}">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/login">Login</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                </c:if>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

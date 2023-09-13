@@ -11,7 +11,7 @@
     <title>Login</title>
 </head>
 <body>
-  <jsp:include page="_header.jsp" />
+  <jsp:include page="/pages/_header.jsp" />
 
   <div class="container">
     <form class="justify-content-center mt-5" action="/login" method="post">
