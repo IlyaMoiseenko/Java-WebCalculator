@@ -1,9 +1,8 @@
 package by.tms.calculator.servlet.user;
 
-import by.tms.calculator.interfaces.Validation;
 import by.tms.calculator.models.User;
 import by.tms.calculator.services.UserService;
-import by.tms.calculator.utils.Validator;
+import by.tms.calculator.utils.UserValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +15,7 @@ import java.io.IOException;
 public class UpdateUsernameServlet extends HttpServlet {
 
     private final UserService userService = new UserService();
-    private final Validation validation = new Validator();
+    private final UserValidator validation = new UserValidator();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
